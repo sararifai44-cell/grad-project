@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 // eslint-disable-next-line
 import { motion, AnimatePresence } from "framer-motion";
+import { publicAsset } from "@/lib/publicAsset";
 
 const sliderImages = [
-  "src/assets/e7.jpg",
-  "src/assets/pexels-zekai-zhu-214984943-11829134.jpg",
-  "src/assets/maria-bobrova-JZiQSVd9iH4-unsplash.jpg",
-  "src/assets/c6.jpg"
+  publicAsset("e7.jpg"),
+  publicAsset("pexels-zekai-zhu-214984943-11829134.jpg"),
+  publicAsset("maria-bobrova-JZiQSVd9iH4-unsplash.jpg"),
+  publicAsset("c6.jpg"),
 ];
 
 const WhyAndalusia = () => {

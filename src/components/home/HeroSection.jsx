@@ -2,6 +2,9 @@ import { useRef } from "react";
 // eslint-disable-next-line
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
+import { publicAsset } from "@/lib/publicAsset";
+
+const heroVideoSrc = publicAsset("طلب_تصميم_فيديو_مخطوطات_وريشة (1).mp4");
 
 const HeroSection = () => {
   const videoRef = useRef(null);
@@ -22,7 +25,7 @@ const HeroSection = () => {
       
       <video 
         ref={videoRef} autoPlay muted loop playsInline
-        src="src\assets\طلب_تصميم_فيديو_مخطوطات_وريشة (1).mp4"
+        src={heroVideoSrc}
         className="absolute inset-0 w-full h-full object-cover z-0"
       />
       <div className="absolute inset-0 bg-black/70 z-[5] pointer-events-none" />

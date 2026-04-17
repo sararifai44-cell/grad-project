@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import AnalysisHero from '../components/poetry/AnalysisHero';
 import AnalysisSection from '../components/poetry/AnalysisSection';
 
-// استيراد صورة الهيرو من مجلد الـ assets
-import heroBackgroundImage from '../assets/ي.png';
+import { publicAsset } from "@/lib/publicAsset";
+
+const heroBackgroundImage = publicAsset("ي.png");
 
 const PoetryAnalysisPage = () => {
   const [inputText, setInputText] = useState(''); 

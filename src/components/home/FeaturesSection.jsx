@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom"; // استدعاء أداة التنقل
+import { publicAsset } from "@/lib/publicAsset";
 
 const featuresData = [
   {
@@ -9,7 +10,7 @@ const featuresData = [
     title: "التحليل الآلي للشعر",
     description: "حلل القصائد بذكاء لاكتشاف بحورها،و شرح مفرداتها، ",
     buttonText: "ابدأ التحليل",
-    image: "src/assets/Gemini_Generated_Image_cxdt5ccxdt5ccxdt (1) (1).png",
+    image: publicAsset("Gemini_Generated_Image_cxdt5ccxdt5ccxdt (1) (1).png"),
     path: "/poetry-analysis" // <-- التعديل هنا: ضفنا مسار الصفحة
   },
   {
@@ -17,7 +18,7 @@ const featuresData = [
     title: "تصنيف الأحداث",
     description: "استكشف تاريخ الأندلس عبر خط زمني يربط كل حدث بأسبابه ونتائجه المباشرة.",
     buttonText: "تصفح الأحداث",
-    image: "src/assets/1024px-Castillo_(Baños_de_la_Encina),_vista_exterior_00.png",
+    image: publicAsset("1024px-Castillo_(Baños_de_la_Encina),_vista_exterior_00.png"),
     path: "" // مسار فارغ مؤقتاً لحين بناء الصفحة
   },
   {
@@ -25,7 +26,7 @@ const featuresData = [
     title: "الخريطة التفاعلية",
     description:"تتبع المسار الزمني لرحلة الفتح العظيم خطوة بخطوة.",
     buttonText: "افتح الخريطة",
-    image: "src/assets/1.PNG",
+    image: publicAsset("1.PNG"),
     path: "" // مسار فارغ مؤقتاً
   },
   {
@@ -33,7 +34,7 @@ const featuresData = [
     title: "معرض الصور",
     description: "مجموعة منتقاة من الصور واللوحات التي تجسد العمارة والحياة في بلاد الأندلس.",
     buttonText: "عرض الصور",
-    image: "src/assets/pexels-david-vives-1474251-34136118.jpg",
+    image: publicAsset("pexels-david-vives-1474251-34136118.jpg"),
     path: "" // مسار فارغ مؤقتاً
   }
 ];

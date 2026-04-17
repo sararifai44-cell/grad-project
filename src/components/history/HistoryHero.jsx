@@ -1,10 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-// استدعاء صورة الخلفية
-import analysisBg from '@/assets/maria-bobrova-JZiQSVd9iH4-unsplash.jpg'; 
+import { publicAsset } from "@/lib/publicAsset";
 
-const HistoryHero = ({ heroBackgroundImage = analysisBg, onQuickStart }) => {
+const defaultHistoryHeroBg = publicAsset("maria-bobrova-JZiQSVd9iH4-unsplash.jpg");
+
+const HistoryHero = ({ heroBackgroundImage = defaultHistoryHeroBg, onQuickStart }) => {
   return (
     <div className="relative w-full min-h-[20vh] flex items-center pt-20 pb-12 overflow-hidden" dir="rtl">
       

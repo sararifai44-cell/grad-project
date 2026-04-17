@@ -4,9 +4,7 @@ import {
   Plus, Trash2, Feather, Search, PenTool, CheckCircle, 
   Zap, Target, Clock, Quote
 } from 'lucide-react';
-import Step1Svg from '../../assets/undraw_insert_z218.svg';
-import Step2Svg from '../../assets/undraw_chat-with-ai_ir62.svg';
-import Step3Svg from '../../assets/undraw_data-at-work_3tbf (2).svg';
+import { publicAsset } from "@/lib/publicAsset";
 
 // --- الألوان الأساسية ---
 const theme = {
@@ -16,9 +14,9 @@ const theme = {
   mutedBtn: '#b09c8a' 
 };
 const steps = [
-    {  title: "أدخل الأبيات", img: Step1Svg },
-    {  title: "تحليل ذكي", img: Step2Svg },
-    { title: "النتائج والتفاصيل", img: Step3Svg }
+    { title: "أدخل الأبيات", img: publicAsset("undraw_insert_z218.svg") },
+    { title: "تحليل ذكي", img: publicAsset("undraw_chat-with-ai_ir62.svg") },
+    { title: "النتائج والتفاصيل", img: publicAsset("undraw_data-at-work_3tbf (2).svg") },
   ];
 export default function PoetryAnalysis() {
   const [verses, setVerses] = useState([
