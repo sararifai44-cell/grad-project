@@ -4,7 +4,6 @@ import { publicAsset } from "@/lib/publicAsset";
 
 const heroVideoSrc = publicAsset("hero1.webm");
 // إضافة مسار صورة الـ Poster (تأكد من وجود صورة بهذا الاسم في مجلد الـ public)
-const heroPosterSrc = publicAsset("hero-poster.jpg"); 
 
 const HeroSection = () => {
   // تم حذف videoRef لعدم الحاجة إليه
@@ -29,7 +28,6 @@ const HeroSection = () => {
         muted 
         loop 
         playsInline
-        poster={heroPosterSrc}
         src={heroVideoSrc}
         className="absolute inset-0 w-full h-full object-cover z-0"
       />

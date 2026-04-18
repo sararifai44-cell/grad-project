@@ -20,7 +20,7 @@ const HistoryHero = ({ onQuickStart }) => {
         <div
           className="absolute inset-0 bg-no-repeat opacity-[0.85]"
           style={{
-            backgroundImage: `url('/assets/coy4.png')`,
+            backgroundImage: `url('/assets/coy4.jpg')`,
             backgroundSize: 'cover',
             backgroundPosition: 'left center' 
           }}
