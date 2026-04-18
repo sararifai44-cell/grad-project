@@ -1,7 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import PrimaryButton from '@/components/ui/PrimaryButton';
-const AnalysisHero = ({ inputText, setInputText, handleAnalyze, isAnalyzing, heroBackgroundImage }) => {
+import { publicAsset } from "@/lib/publicAsset"; // <-- 1. استدعاء أداة مسار الملفات
+
+// 2. تعريف الصورة هنا (لا تنسَ وضع اسم صورتك الحقيقي مع الصيغة)
+const heroBgImage = publicAsset("ba.jpg"); 
+
+const AnalysisHero = ({ inputText, setInputText, handleAnalyze, isAnalyzing }) => { // <-- 3. أزلنا الصورة من هنا
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
@@ -13,16 +18,18 @@ const AnalysisHero = ({ inputText, setInputText, handleAnalyze, isAnalyzing, her
   };
 
   return (
-    <div className="relative w-full min-h-screen overflow-hidden">
-      <motion.div 
+    <div className="relative w-full min-h-screen overflow-hidden bg-black/90">
+      
+      {/* استخدمنا المتغير heroBgImage الذي عرفناه بالأعلى */}
+      <motion.img 
+        src={heroBgImage}
+        alt="خلفية الأندلس"
         initial={{ scale: 1.1 }}
         animate={{ scale: 1 }}
         transition={{ duration: 10, ease: "easeOut" }}
-        className="absolute inset-0 bg-cover bg-no-repeat"
-        style={{ 
-          backgroundImage: `url(${heroBackgroundImage})`,
-          backgroundPosition: 'center 9%' 
-        }}
+        className="absolute inset-0 w-full h-full object-cover z-0"
+        style={{ objectPosition: 'center 9%' }}
+        fetchpriority="high"
       />
       
       <div className="absolute inset-0 bg-black/25 pointer-events-none z-0"></div>
