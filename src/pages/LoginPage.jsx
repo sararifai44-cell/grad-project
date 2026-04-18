@@ -43,7 +43,7 @@ const LoginPage = () => {
       {/* فيديو البوابة */}
       <video 
         ref={videoRef}
-        src="public\assets\gate.mp4" 
+        src="/assets/gate.mp4" 
         style={{ opacity: isFadingToBlack ? 0 : 1, transition: 'opacity 0.5s ease-in-out' }}
         className="absolute inset-0 w-full h-full object-cover z-0"
         muted playsInline
