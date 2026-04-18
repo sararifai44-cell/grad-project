@@ -1,116 +1,89 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-import { publicAsset } from "@/lib/publicAsset";
+const HistoryHero = ({ onQuickStart }) => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.2, delayChildren: 0.2 } }
+  };
+  
+  const itemVariants = {
+    hidden: { opacity: 0, x: 30 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: "easeOut" } }
+  };
 
-const defaultHistoryHeroBg = publicAsset("maria-bobrova-JZiQSVd9iH4-unsplash.jpg");
-
-const HistoryHero = ({ heroBackgroundImage = defaultHistoryHeroBg, onQuickStart }) => {
   return (
-    <div className="relative w-full min-h-[20vh] flex items-center pt-20 pb-12 overflow-hidden" dir="rtl">
-      
-      {/* 1. الخلفية بتأثير التغبيش */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center blur-sm scale-105 z-0"
-        style={{ backgroundImage: `url(${heroBackgroundImage})` }}
-      />
-      
-      {/* 2. الطبقة اللونية الأندلسية الفاتحة (Sandstone) */}
-      <div className="absolute inset-0 bg-[#F9F7F1]/90 z-0"></div>
+    <div className="relative w-full h-screen flex items-center bg-[#0d0c0b] overflow-hidden" dir="rtl">
 
-      <div className="mx-auto w-full max-w-7xl px-6 md:px-12 flex flex-col lg:flex-row items-center gap-12 lg:gap-16 relative z-10">
+      {/* 1. طبقة الخلفية والخريطة */}
+      <div className="absolute inset-0 z-0 w-full h-full">
+        <div
+          className="absolute inset-0 bg-no-repeat opacity-[0.85]"
+          style={{
+            backgroundImage: `url('/assets/coy4.png')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'left center' 
+          }}
+        />
         
-        {/* القسم الأيمن: المحتوى النصي الخاص بالأداة */}
-        <div className="w-full lg:w-1/2 flex flex-col items-start justify-center text-right z-20">
-          <motion.div 
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+        {/* إضافة أوفرلاي خفيف على كامل الصورة */}
+        <div className="absolute inset-0 bg-[#0d0c0b]/30 z-10 pointer-events-none"></div>
+        
+        {/* تم تخفيف التدرج على اليمين ليظهر المزيد من الخريطة خلف النص */}
+        <div className="absolute inset-y-0 right-0 w-full md:w-3/4 bg-gradient-to-l from-[#0d0c0b]/80 via-[#0d0c0b]/50 to-transparent z-10 pointer-events-none"></div>
+        
+        {/* تدرج علوي لحماية النافبار (Navbar) */}
+        <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-[#0d0c0b]/90 to-transparent z-10 pointer-events-none"></div>
+      </div>
+
+      {/* 2. حاوية المحتوى - justify-start في الـ rtl تعني التثبيت على اليمين */}
+      <div className="relative z-20 w-full h-full max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-start pt-16">
+
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="w-full max-w-xl flex flex-col items-start text-right"
+        >
+        
+          {/* عنوان يعكس طبيعة النظام كأداة تحليلية وفهم عميق */}
+        <motion.h1
+            variants={itemVariants}
+            className="text-3xl md:text-2xl lg:text-[4rem] font-bold text-white mb-4 leading-[1.3] drop-shadow-lg"
+            style={{ fontFamily: ' sans-serif' }}
           >
-            <div className="flex items-center gap-4 mb-4">
-              <div className="h-[1px] w-12 bg-[#C4A87C]"></div>
-              <h2 className="text-[#C4A87C] font-bold text-sm tracking-widest uppercase">
-                أدوات التحليل التاريخي
-              </h2>
-            </div>
-            
-            <h1 
-              className="text-4xl lg:text-6xl font-bold text-[#1A3C34] mb-6 leading-tight drop-shadow-sm" 
+                        مُحلّل الأحداث الأندلسية
+
+          </motion.h1>
+
+        <motion.div
+            variants={itemVariants}
+            className="mb-8 border-r-4 border-[#C4A87C] pr-4 py-1"
+          >
+            <span
+              className="text-[#C4A87C] text-3xl md:text-4xl font-medium drop-shadow-md"
               style={{ fontFamily: '"Amiri", serif' }}
             >
-              ميزان الوقائع: <br />
-              <span className="text-[#C4A87C]">السبب والنتيجة</span>
-            </h1>
+              تصنيف زمني واستكشاف للروابط السببية
+            </span>
+          </motion.div>
 
-            {/* تم جعل النص هنا أغمق وأسمك ليكون أوضح للقراءة */}
-            <p className="text-[#1A3C34] text-xl mb-8 leading-relaxed font-medium border-r-4 border-[#C4A87C] pr-6 max-w-md bg-white/30 p-4 rounded-l-lg shadow-sm">
-              "هنا نربط خيوط التاريخ؛ أدخل الحدث الأندلسي لتعرف الدوافع التي حركته والآثار التي خلّدها في صفحات الزمان."
-            </p>
-
-            <div className="flex gap-6 mb-10">
-               <div className="flex items-center gap-2 text-[#1A3C34] font-bold text-base">
-                  <span className="w-8 h-8 rounded-full bg-[#C4A87C]/20 flex items-center justify-center text-[#C4A87C]">١</span>
-                  تصنيف ذكي
-               </div>
-               <div className="flex items-center gap-2 text-[#1A3C34] font-bold text-base">
-                  <span className="w-8 h-8 rounded-full bg-[#C4A87C]/20 flex items-center justify-center text-[#C4A87C]">٢</span>
-                  ربط منطقي
-               </div>
-            </div>
-
-            {/* زر البدء السريع الجديد */}
-            <button 
-              onClick={onQuickStart}
-              className="bg-[#1A3C34] text-[#F9F7F1] px-10 py-3.5 rounded-full font-bold text-lg hover:scale-105 hover:bg-[#C4A87C] transition-all shadow-lg flex items-center gap-4 group border border-transparent hover:border-[#1A3C34]"
-              style={{ fontFamily: '"Amiri", serif' }}
-            >
-              <span>البدء السريع</span>
-              <svg 
-                className="w-5 h-5 rotate-180 group-hover:-translate-x-2 transition-transform" 
-                fill="none" stroke="currentColor" viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          {/* الزر الأخضر الغامق */}
+          <motion.button 
+            variants={itemVariants}
+            onClick={onQuickStart}
+            className="group relative px-10 py-3.5 bg-[#1A3C34] border border-[#C4A87C]/40 text-white rounded-full font-bold text-lg overflow-hidden transition-all shadow-xl hover:border-[#C4A87C] mb-12"
+          >
+            <div className="absolute inset-0 w-0 bg-[#C4A87C] transition-all duration-500 ease-out group-hover:w-full"></div>
+            <span className="relative flex items-center gap-3 group-hover:text-[#0d0c0b] transition-colors duration-300">
+              ابدأ تحليل الحدث
+              <svg className="w-5 h-5 -rotate-90 transition-transform duration-500 group-hover:rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
               </svg>
-            </button>
-          </motion.div>
-        </div>
+            </span>
+          </motion.button>
 
-        {/* القسم الأيسر: البوابة الأندلسية بحجم أصغر وأكثر تركيزاً */}
-        <div className="w-full lg:w-1/2 flex justify-center lg:justify-end relative mt-10 lg:mt-0">
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1 }}
-            className="relative w-full max-w-[320px] h-[400px] rounded-t-[10rem] rounded-b-2xl p-2 border border-[#C4A87C]/40 shadow-2xl bg-white/50 backdrop-blur-md"
-          >
-            <div className="relative w-full h-full rounded-t-[9.5rem] rounded-b-xl overflow-hidden bg-[#F9F7F1]">
-              <div 
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-[10s] hover:scale-110"
-                style={{ backgroundImage: `url(${heroBackgroundImage})` }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1A3C34]/80 via-[#1A3C34]/20 to-transparent"></div>
-              
-              {/* أيقونة تعبيرية عن التحليل وسط البوابة */}
-              <div className="absolute inset-0 flex items-center justify-center mt-12">
-                 <motion.div 
-                   animate={{ y: [0, -10, 0] }}
-                   transition={{ duration: 4, repeat: Infinity }}
-                   className="text-white drop-shadow-[0_5px_15px_rgba(0,0,0,0.5)]"
-                 >
-                    <svg className="w-20 h-20 opacity-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
-                 </motion.div>
-              </div>
-            </div>
-
-            {/* زخرفة خشبية أسفل البوابة */}
-            <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 px-8 py-2.5 bg-[#5D4037] text-[#C4A87C] text-sm font-bold rounded-md shadow-xl border border-[#C4A87C]/30 tracking-wide">
-               مخطوطات التحليل
-            </div>
-          </motion.div>
-        </div>
-
+        </motion.div>
       </div>
     </div>
   );

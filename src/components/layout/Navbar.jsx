@@ -43,7 +43,7 @@ const Navbar = () => {
   };
 
   // ✅ التعديل هنا: وضعنا المسار الصحيح تماماً كما يظهر في المتصفح
-  const transparentPages = ['/home', '/poetry-analysis']; 
+  const transparentPages = ['/home', '/poetry-analysis','/history-classification']; 
   const isTransparentPage = transparentPages.includes(location.pathname);
 
   return (
