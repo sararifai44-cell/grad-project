@@ -30,11 +30,16 @@ const HeroSection = () => {
       />
       <div className="absolute inset-0 bg-black/70 z-[5] pointer-events-none" />
 
-      <motion.div style={{ opacity: heroOpacity, y: heroY }} className="relative z-20 flex flex-col h-full justify-center w-full pr-8 md:pr-16 lg:pr-24">
-        <motion.div initial="hidden" animate="visible" className="flex flex-col items-start text-right max-w-[850px] gap-5 mt-16 md:mt-24 lg:mt-32">
-          <h1 className="font-serif font-bold text-6xl md:text-8xl lg:text-[95px] text-[#FDF1D3] leading-none drop-shadow-2xl">حين تفتح الأندلس</h1>
-          <p className="font-sans text-lg md:text-xl lg:text-2xl text-[#FDF1D3]/80 leading-relaxed font-light max-w-xl">منصةٌ رقمية تدمج بين التحليل الآلي للقصائد والتصنيف التاريخي للأحداث، في مساحة بصرية تفاعلية.</p>
-          <button onClick={() => scrollToSection("platform-features")} className="mt-6 px-12 py-4 bg-[#1A3C34] text-[#FDF1D3] font-bold rounded-full border border-white/5 flex items-center gap-4 group">
+      <motion.div style={{ opacity: heroOpacity, y: heroY }} className="relative z-20 flex flex-col h-full justify-center w-full pr-8 md:pr-16 lg:pr-24 2xl:pr-40">
+        <motion.div initial="hidden" animate="visible" className="flex flex-col items-start text-right max-w-[850px] 2xl:max-w-[1400px] gap-5 mt-16 md:mt-24 lg:mt-32 2xl:mt-48">
+          <h1 className="font-serif font-bold text-6xl md:text-8xl lg:text-[95px] 2xl:text-[140px] text-[#FDF1D3] leading-none drop-shadow-2xl">حين تفتح الأندلس</h1>
+          <p className="font-sans text-lg md:text-xl lg:text-2xl 2xl:text-4xl text-[#FDF1D3]/80 leading-relaxed font-light max-w-xl 2xl:max-w-3xl">منصةٌ رقمية تدمج بين التحليل الآلي للقصائد والتصنيف التاريخي للأحداث، في مساحة بصرية تفاعلية.</p>
+          
+          {/* التعديل هنا: cursor-pointer وألوان مطابقة لقسم الأحداث عند الهوفر */}
+          <button 
+            onClick={() => scrollToSection("platform-features")} 
+            className="mt-6 px-12 py-4 2xl:px-16 2xl:py-6 2xl:text-xl bg-[#1A3C34] hover:bg-[#C1A881] hover:text-[#3E2723] text-[#FDF1D3] font-bold rounded-full border border-white/5 flex items-center gap-4 group transition-colors duration-300 cursor-pointer"
+          >
             اكتشف ميزات المنصة <ArrowLeft size={20} className="group-hover:-translate-x-2 transition-transform duration-300" />
           </button>
         </motion.div>
