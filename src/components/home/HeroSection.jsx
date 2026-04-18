@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import { publicAsset } from "@/lib/publicAsset";
 
-const heroVideoSrc = publicAsset("طلب_تصميم_فيديو_مخطوطات_وريشة (1).mp4");
+const heroVideoSrc = publicAsset("hero1.webm");
 
 const HeroSection = () => {
   const videoRef = useRef(null);
