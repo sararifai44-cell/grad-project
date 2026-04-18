@@ -32,7 +32,7 @@ const RegisterPage = () => {
       {/* فيديو الخلفية */}
       <video 
         ref={videoRef}
-        src="/gate (2).mp4" 
+        src="public\assets\gate.mp4" 
         className="absolute inset-0 w-full h-full object-cover z-0"
         muted playsInline loop
       />

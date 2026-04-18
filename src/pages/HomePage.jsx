@@ -1,4 +1,3 @@
-import Navbar from "../components/layout/Navbar";
 import HeroSection from "../components/home/HeroSection";
 import FeaturesSection from "../components/home/FeaturesSection";
 import WhyAndalusia from "../components/home/WhyAndalusia";

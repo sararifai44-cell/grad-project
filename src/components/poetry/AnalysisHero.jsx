@@ -1,49 +1,62 @@
-import React from 'react';
+import React, { useCallback } from 'react'; // أضفنا useCallback
 import { motion } from 'framer-motion';
 import PrimaryButton from '@/components/ui/PrimaryButton';
-import { publicAsset } from "@/lib/publicAsset"; // <-- 1. استدعاء أداة مسار الملفات
+import { publicAsset } from "@/lib/publicAsset"; 
 
-// 2. تعريف الصورة هنا (لا تنسَ وضع اسم صورتك الحقيقي مع الصيغة)
+// 1. نقل البيانات الثابتة خارج الكمبوننت (لتحسين الذاكرة)
 const heroBgImage = publicAsset("ba.jpg"); 
 
-const AnalysisHero = ({ inputText, setInputText, handleAnalyze, isAnalyzing }) => { // <-- 3. أزلنا الصورة من هنا
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
-  };
+const FEATURES = [
+  { text: "التحليل العروضي الآلي" }, // صححنا الخطأ المطبعي هنا
+  { text: "تصنيف الأغراض الشعرية" },
+  { text: "شرح أدبي مبسط" }
+];
 
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1 }
-  };
+// 2. تعريف الأنيميشن في متغيرات ثابتة
+const CONTAINER_VARIANTS = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
+};
+
+const ITEM_VARIANTS = {
+  hidden: { y: 20, opacity: 0 },
+  visible: { y: 0, opacity: 1 }
+};
+
+const AnalysisHero = () => { 
+  // 3. استخدام useCallback لضمان أداء مستقر
+  const scrollToAnalyzer = useCallback(() => {
+    const element = document.getElementById('analyzer-section');
+    element?.scrollIntoView({ behavior: 'smooth' });
+  }, []);
 
   return (
-    <div className="relative w-full min-h-screen overflow-hidden bg-black/90">
-      
-      {/* استخدمنا المتغير heroBgImage الذي عرفناه بالأعلى */}
+    <div className="relative w-full min-h-screen overflow-hidden bg-[#0a0a0a]">
+      {/* الخلفية مع تحسين التحميل */}
       <motion.img 
         src={heroBgImage}
-        alt="خلفية الأندلس"
+        alt="" // تركها فارغة للمتصفحات لأنها ديكورية فقط
         initial={{ scale: 1.1 }}
         animate={{ scale: 1 }}
-        transition={{ duration: 10, ease: "easeOut" }}
-        className="absolute inset-0 w-full h-full object-cover z-0"
+        transition={{ duration: 8, ease: "linear" }} // تقليل الوقت ليكون التفاعل أنعم
+        className="absolute inset-0 w-full h-full object-cover z-0 opacity-80"
         style={{ objectPosition: 'center 9%' }}
         fetchpriority="high"
       />
       
-      <div className="absolute inset-0 bg-black/25 pointer-events-none z-0"></div>
+      {/* طبقة التظليل المدمجة */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60 pointer-events-none z-0" />
       
       <section className="relative w-full min-h-screen flex flex-col justify-center items-start text-right pr-6 md:pr-12 lg:pr-20 pl-10 pt-32 pb-24 z-10 max-w-[1600px] mx-auto">
         <motion.h1 
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 drop-shadow-2xl" 
-          style={{ fontFamily: '"Amiri", serif', lineHeight: '1.2' }}
+          transition={{ duration: 0.8 }}
+          className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 drop-shadow-2xl font-serif text-white" 
+          style={{ lineHeight: '1.2' }}
         >
           <span className="text-[#D9C8A9]">تحليل الشعر </span>
-          <span className="text-white">آلياً</span>
+          <span>آلياً</span>
         </motion.h1>
 
         <motion.p 
@@ -55,25 +68,22 @@ const AnalysisHero = ({ inputText, setInputText, handleAnalyze, isAnalyzing }) =
           بوابة ذكية تفتح آفاقاً جديدة في دراسة الأدب الأندلسي بلمسة تقنية حديثة.
         </motion.p>
 
+        {/* قائمة المميزات */}
         <motion.div 
-          variants={containerVariants}
+          variants={CONTAINER_VARIANTS}
           initial="hidden"
           animate="visible"
           className="flex flex-wrap justify-start items-center gap-4 md:gap-6 mb-14 w-full"
         >
-          {[
-            { text: "التحليل العروضي الآلي" },
-            { text: "تصنيف الأغراض الشعرية" },
-            { text: "شرح أدبي مبسط" }
-          ].map((item, index) => (
+          {FEATURES.map((item, index) => (
             <motion.div 
               key={index} 
-              variants={itemVariants}
+              variants={ITEM_VARIANTS}
               whileHover={{ y: -5, backgroundColor: '#EADBC3', scale: 1.05 }}
               className="flex items-center gap-4 bg-[#D9C8A9] px-6 py-3 rounded-full shadow-lg border border-[#D9C8A9] cursor-default group transition-all"
             >
               <div className="flex items-center justify-center opacity-80 group-hover:rotate-90 transition-transform duration-700">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
                   <path d="M12 0L14.5 7.5L22 10L14.5 12.5L12 20L9.5 12.5L2 10L9.5 7.5L12 0Z" fill="#2D140D"/>
                 </svg>
               </div>
@@ -83,25 +93,15 @@ const AnalysisHero = ({ inputText, setInputText, handleAnalyze, isAnalyzing }) =
         </motion.div>
 
         <motion.div 
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.2 }}
-          className="flex flex-row items-stretch w-full max-w-xl h-14 shadow-2xl rounded-xl overflow-hidden"
+          transition={{ duration: 0.6, delay: 1 }}
         >
-          <input 
-            type="text"
-            value={inputText}
-            onChange={(e) => setInputText(e.target.value)}
-            placeholder="أدخل بيتاً شعرياً..."
-            className="flex-grow bg-white text-[#1A3C34] placeholder-[#1A3C34]/50 px-6 py-0 text-lg outline-none border-none"
-            style={{ fontFamily: '"Amiri", serif' }}
-          />
           <PrimaryButton 
-            style={{ color: '#F9F7F1', margin: 0 }} 
-            className="bg-[#1A3C34] hover:bg-[#245247] px-8 font-bold transition-all whitespace-nowrap !rounded-none border-none flex items-center justify-center" 
-            onClick={handleAnalyze}
+            className="bg-[#1A3C34] hover:bg-[#245247] px-14 py-5 text-xl rounded-full font-bold transition-all shadow-2xl flex items-center justify-center gap-2 cursor-pointer text-[#F9F7F1]" 
+            onClick={scrollToAnalyzer}
           >
-            {isAnalyzing ? 'جارِ...' : 'ابدأ التحليل'}
+            ابدأ التحليل الآن
           </PrimaryButton>
         </motion.div>
       </section>

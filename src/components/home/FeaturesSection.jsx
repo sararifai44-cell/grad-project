@@ -19,7 +19,7 @@ const featuresData = [
     description: "استكشف تاريخ الأندلس عبر خط زمني يربط كل حدث بأسبابه ونتائجه المباشرة.",
     buttonText: "حلل الأحداث",
     image: publicAsset("1024px-Castillo_(Baños_de_la_Encina),_vista_exterior_00.jpg"),
-    path: "" 
+    path: "/history-classification" // <-- التعديل هنا: أضفنا مسار الصفحة
   },
   {
     id: "geography",
@@ -49,6 +49,7 @@ const FeaturesSection = () => {
           <h2 className="text-3xl md:text-5xl lg:text-6xl 2xl:text-[80px] font-serif font-black text-[#3E2723] mb-3 2xl:mb-6">« أدوات المنصة »</h2>
           <p className="text-[#5D4037]/70 font-sans max-w-xl 2xl:max-w-3xl text-sm md:text-base 2xl:text-xl leading-relaxed text-center">نضع بين يديك أحدث التقنيات لخدمة وإحياء التراث الأندلسي العريق.</p>
         </div>
+        
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 2xl:gap-10 w-full px-2 md:px-0">
           {featuresData.map((feature, index) => (
             <motion.div 
@@ -75,7 +76,13 @@ const FeaturesSection = () => {
               className="flex flex-col bg-[#FAF9F6] rounded-[1.8rem] 2xl:rounded-[2.5rem] overflow-hidden shadow-sm border border-[#3E2723]/5 hover:border-[#C1A881]/40 transition-colors duration-300 group cursor-pointer w-full"
             >
               <div className="w-full h-40 lg:h-44 2xl:h-72 relative overflow-hidden bg-black border-b border-[#3E2723]/5">
-                <img src={feature.image} alt={feature.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 brightness-[0.9]" />
+                <img 
+                  src={feature.image} 
+                  alt={feature.title} 
+                  loading="lazy" 
+                  decoding="async" 
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 brightness-[0.9]" 
+                />
               </div>
               <div className="flex flex-col p-5 2xl:p-8 text-center items-center bg-white/40 flex-1 justify-between pointer-events-none">
                 <div>
@@ -83,7 +90,6 @@ const FeaturesSection = () => {
                   <p className="text-[#5D4037]/80 text-[12px] 2xl:text-base mb-5 2xl:mb-8 leading-relaxed">{feature.description}</p>
                 </div>
                 
-                {/* التعديل هنا: استخدام text-[#1A3C34] للأخضر الغامق وتغيير لون الـ hover */}
                 <div className="flex items-center justify-center gap-2 text-[#1A3C34] font-bold text-[14px] 2xl:text-[18px] border-t border-[#C1A881]/20 pt-4 2xl:pt-6 w-full group-hover:text-[#255248] transition-colors"> 
                   {feature.buttonText} <ArrowLeft size={16} className="2xl:scale-125" />
                 </div>
