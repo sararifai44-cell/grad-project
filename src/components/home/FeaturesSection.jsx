@@ -27,7 +27,7 @@ const featuresData = [
     description:"تتبع المسار الزمني لرحلة الفتح العظيم خطوة بخطوة.",
     buttonText: "افتح الخريطة",
     image: publicAsset("1.jpg"),
-    path: "" 
+    path: "" // املئي هذا لاحقاً عندما تجهز صفحة الخريطة
   },
   {
     id: "gallery",
@@ -35,7 +35,8 @@ const featuresData = [
     description: "مجموعة منتقاة من الصور واللوحات التي تجسد العمارة والحياة في بلاد الأندلس.",
     buttonText: "عرض الصور",
     image: publicAsset("jorge-fernandez-salas-yteO5bs_QCA-unsplash (1) (1).jpg"),
-    path: "" 
+    // 1. التعديل هنا: إضافة مسار الغاليري الذي عرفناه في AppRoutes
+    path: "/gallery" 
   }
 ];
 
@@ -44,7 +45,6 @@ const FeaturesSection = () => {
 
   return (
     <section id="platform-features" className="relative pt-8 pb-14 md:pt-12 md:pb-20 2xl:pt-32 2xl:pb-48 px-6 bg-[#F2EFE9] z-30 border-t border-[#C1A881]/10">
-      {/* تم تحديد max-w في 2xl لضمان عدم تمدد المحتوى بشكل مفرط في الشاشات العملاقة */}
       <div className="max-w-7xl 2xl:max-w-[1500px] mx-auto relative z-10 flex flex-col items-center">
         
         <div className="text-center mb-8 2xl:mb-20">
@@ -52,7 +52,6 @@ const FeaturesSection = () => {
           <p className="text-[#5D4037]/70 font-sans max-w-xl 2xl:max-w-4xl text-sm md:text-base 2xl:text-2xl leading-relaxed text-center">نضع بين يديك أحدث التقنيات لخدمة وإحياء التراث الأندلسي العريق.</p>
         </div>
         
-        {/* تحسين الفراغات (Gap) في الشاشات الكبيرة جداً */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 2xl:gap-12 w-full px-2 md:px-0">
           {featuresData.map((feature, index) => (
             <motion.div 
@@ -78,7 +77,6 @@ const FeaturesSection = () => {
               }}
               className="flex flex-col bg-[#FAF9F6] rounded-[1.8rem] 2xl:rounded-[3rem] overflow-hidden shadow-sm border border-[#3E2723]/5 hover:border-[#C1A881]/40 transition-colors duration-300 group cursor-pointer w-full"
             >
-              {/* تعديل ارتفاع الصورة في 2xl ليتناسب مع ضخامة الشاشة */}
               <div className="w-full h-40 lg:h-44 2xl:h-80 relative overflow-hidden bg-black border-b border-[#3E2723]/5">
                 <img 
                   src={feature.image} 
@@ -89,7 +87,6 @@ const FeaturesSection = () => {
                 />
               </div>
 
-              {/* زيادة الحشوة الداخلية (Padding) في الشاشات الكبيرة للحفاظ على التوازن البصري */}
               <div className="flex flex-col p-5 2xl:p-10 text-center items-center bg-white/40 flex-1 justify-between pointer-events-none">
                 <div>
                   <h3 className="text-lg 2xl:text-3xl font-serif font-bold text-[#3E2723] mb-2 2xl:mb-6">{feature.title}</h3>

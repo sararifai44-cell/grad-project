@@ -4,9 +4,10 @@ import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import HomePage from "../pages/HomePage";
 import PoetryAnalysisPage from "../pages/PoetryAnalysisPage";
-// 1. استيراد الصفحة الجديدة (تأكدي من إنشاء الملف أولاً)
 import HistoryClassificationPage from "../pages/HistoryClassificationPage"; 
-
+// 1. استيراد صفحة الغاليري الجديدة
+import GalleryIndex from "../pages/GalleryIndex";
+import LandmarkViewer from "../pages/LandmarkViewer";
 const AppRoutes = () => {
   return (
     <Router>
@@ -14,12 +15,14 @@ const AppRoutes = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
 
+        {/* جميع المسارات هنا ستعرض النافبار والفوتر تلقائياً */}
         <Route element={<MainLayout />}>
           <Route path="/home" element={<HomePage />} />
           <Route path="/poetry-analysis" element={<PoetryAnalysisPage />} />
-          
-          {/* 2. إضافة المسار الجديد هنا داخل الـ Layout ليظهر النافبار */}
           <Route path="/history-classification" element={<HistoryClassificationPage />} /> 
+          <Route path="/gallery" element={<GalleryIndex />} />
+<Route path="/gallery/:id" element={<LandmarkViewer />} />
+          {/* 2. إضافة مسار الغاليري الجديد هنا */}
         </Route>
 
         <Route path="/" element={<Navigate to="/login" replace />} />
