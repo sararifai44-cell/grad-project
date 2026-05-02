@@ -5,7 +5,8 @@ import {
 } from 'lucide-react';
 import { publicAsset } from "@/lib/publicAsset";
 
-// --- الألوان الأساسية (تصميمك الأصلي) ---
+import { useAnalyzePoetryMutation } from './poetryApiSlice'; 
+
 const theme = {
   bg: '#faf8f3',
   primary: '#6b4423', 
@@ -28,8 +29,9 @@ export default function PoetryAnalysis() {
     { shatr1: '', shatr2: '' },
   ]);
   
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisResult, setAnalysisResult] = useState(null);
+
+  const [analyzePoetry, { isLoading: isAnalyzing, isError }] = useAnalyzePoetryMutation();
 
   const handleVerseChange = (index, field, value) => {
     const newVerses = [...verses];
@@ -56,19 +58,35 @@ export default function PoetryAnalysis() {
 
   const isInputValid = verses.some(v => v.shatr1.trim() !== '' || v.shatr2.trim() !== '');
 
-  const handleAnalyze = () => {
+  const handleAnalyze = async () => {
     if (!isInputValid) return;
-    setIsAnalyzing(true);
     setAnalysisResult(null); 
-    setTimeout(() => {
+
+    // دمج الأشطر مع بعضها لإرسالها للباك إند
+    const formattedVerses = verses
+      .filter(v => v.shatr1.trim() !== '' || v.shatr2.trim() !== '') 
+      .map(v => `${v.shatr1.trim()} ${v.shatr2.trim()}`.trim()); 
+
+    // سطر الطباعة الجديد للتأكد من الأبيات المرسلة
+    console.log("البيانات المرسلة للباك إند:", formattedVerses);
+
+    try {
+      const response = await analyzePoetry({
+        verses: formattedVerses,
+        title: "تحليل جديد"
+      }).unwrap();
+
+      // قراءة البيانات من المسار الدقيق في الباك إند
       setAnalysisResult({
-        purpose: "الفخر والحماسة",
-        meter: "البحر الطويل",
-        rhyme: "الميم المكسورة",
-        explanation: "في هذا البيت الشعري، يستخدم الشاعر أسلوباً بلاغياً راقياً يجمع بين الوصف الحسي والمشاعر الوجدانية. الصور الشعرية تتداخل لتخلق لوحة فنية متكاملة تعبر عن عمق التجربة الإنسانية. استخدام الكلمات المنتقاة بعناية يضفي على الأبيات موسيقى داخلية تتناغم مع الوزن الخارجي، مما يعزز الأثر الجمالي والعاطفي للنص."
+        purpose: response?.result?.content?.purpose || "غير محدد",
+        meter: response?.result?.content?.meter || "غير محدد",
+        rhyme: response?.result?.content?.rhyme || "غير محدد",
+        explanation: response?.result?.content?.explanation?.summary || "لا يوجد شرح متاح."
       });
-      setIsAnalyzing(false);
-    }, 1500);
+      
+    } catch (err) {
+      console.error("Analysis Error:", err);
+    }
   };
 
   const getPlaceholder = (index, isShatr1) => {
@@ -78,10 +96,9 @@ export default function PoetryAnalysis() {
   return (
     <div className="min-h-screen font-['Amiri',_serif] pb-24 text-right" style={{ backgroundColor: theme.bg }} dir="rtl">
       
-      {/* ================= كيف يعمل الموقع (تصميمك الأصلي تماماً) ================= */}
+      {/* ================= كيف يعمل الموقع ================= */}
       <section className="py-12 px-6 lg:px-12 bg-[#f0f7f1] select-none" dir="rtl">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center lg:items-center gap-8 lg:gap-12">
-          
           <div className="w-full lg:w-1/3 flex flex-col justify-center text-center lg:text-right shrink-0">
             <h2 className="text-4xl md:text-5xl lg:text-5xl font-black mb-4 text-[#3d2e1f] leading-[1.2] tracking-tight">
               كيف يعمل الموقع؟
@@ -126,7 +143,7 @@ export default function PoetryAnalysis() {
         </div>
       </section>
 
-      {/* ================= القسم الرئيسي: الأداة والنتائج (تصميمك الأصلي) ================= */}
+      {/* ================= القسم الرئيسي: الأداة والنتائج ================= */}
       <section id="analyzer-section" className="px-4 max-w-[1400px] mx-auto mb-20 bg-white/40 py-12 rounded-3xl border border-[#e5dcd3]/50">
         <div className="flex items-center justify-center gap-4 mb-10">
           <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center shadow-md shrink-0" style={{ backgroundColor: theme.primary }}>
@@ -149,13 +166,17 @@ export default function PoetryAnalysis() {
               {verses.map((verse, index) => (
                 <div key={index} className="flex flex-col md:flex-row gap-2 items-center relative group shrink-0">
                   <div className="hidden md:flex w-7 h-7 shrink-0 rounded-full bg-[#7a9b76]/15 text-[#7a9b76] items-center justify-center font-bold text-xs font-sans">{index + 1}</div>
+                  
                   <div className="flex-1 w-full flex flex-col gap-1">
                     <input type="text" placeholder={getPlaceholder(index, true)} value={verse.shatr1} onChange={(e) => handleVerseChange(index, 'shatr1', e.target.value)} className="w-full bg-[#faf8f3] border border-[#b09c8a]/40 rounded-lg px-4 py-2.5 outline-none focus:border-[#6b4423] focus:bg-white transition-all text-lg text-[#3d2e1f] text-center" />
                   </div>
+                  
                   <div className="hidden md:flex items-center justify-center text-[#b09c8a] opacity-30"><Feather size={16} className="rotate-45" /></div>
+                  
                   <div className="flex-1 w-full flex flex-col gap-1">
                     <input type="text" placeholder={getPlaceholder(index, false)} value={verse.shatr2} onChange={(e) => handleVerseChange(index, 'shatr2', e.target.value)} className="w-full bg-[#faf8f3] border border-[#b09c8a]/40 rounded-lg px-4 py-2.5 outline-none focus:border-[#6b4423] focus:bg-white transition-all text-lg text-[#3d2e1f] text-center" />
                   </div>
+                  
                   <div className="w-8 flex justify-center">
                     {verses.length > 1 && (
                       <button onClick={() => handleRemoveVerse(index)} className="text-red-400 hover:text-red-600 transition-colors"><Trash2 size={18} /></button>
@@ -171,10 +192,11 @@ export default function PoetryAnalysis() {
                   <Plus size={16} /> أضف بيتاً جديداً
                 </button>
               </div>
-              <div className="flex justify-center">
+              <div className="flex justify-center flex-col items-center gap-2">
                 <button onClick={handleAnalyze} disabled={isAnalyzing || !isInputValid} className="text-white px-10 py-3 rounded-xl font-bold text-lg flex items-center gap-2 shadow-lg w-full md:w-auto justify-center transition-all active:scale-[0.98] disabled:opacity-50" style={{ backgroundColor: theme.primary }}>
-                  {isAnalyzing ? "جارٍ التحليل..." : <><Sparkles size={18}/> تحليل القصيدة</>}
+                  {isAnalyzing ? "جارٍ التحليل بالذكاء الاصطناعي..." : <><Sparkles size={18}/> تحليل القصيدة</>}
                 </button>
+                {isError && <p className="text-red-500 text-sm font-bold">حدث خطأ أثناء الاتصال بالخادم.</p>}
               </div>
             </div>
           </div>
@@ -233,7 +255,7 @@ export default function PoetryAnalysis() {
         </div>
       </section>
 
-      <style jsx>{`
+      <style>{`
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #b09c8a; border-radius: 10px; }
