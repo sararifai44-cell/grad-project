@@ -72,17 +72,7 @@ const LightSlimFooter = () => {
 
         </div>
 
-        {/* الشريط السفلي - الفاصل أصبح بلون داكن شفاف ليتناسب مع الخلفية الفاتحة */}
-        <div className="pt-6 border-t border-[#1B3022]/10 flex flex-col md:flex-row justify-between items-center gap-3">
-          <p className="font-tajawal text-[11px] text-[#1B3022]/50 font-medium">
-            جميع الحقوق محفوظة © {currentYear} | منصة حين تفتح الأندلس
-          </p>
-          <div className="flex gap-4 font-tajawal text-[11px] text-[#1B3022]/50 uppercase tracking-tighter font-medium">
-            <Link to="/privacy" className="hover:text-[#C1A881] transition-colors">الخصوصية</Link>
-            <Link to="/terms" className="hover:text-[#C1A881] transition-colors">الشروط</Link>
-          </div>
-        </div>
-
+     
       </div>
     </footer>
   );

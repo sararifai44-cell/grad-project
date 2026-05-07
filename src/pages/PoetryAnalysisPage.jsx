@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import AnalysisHero from '../components/poetry/AnalysisHero';
 import AnalysisSection from '../components/poetry/AnalysisSection';
-
+import PoetryCulturalInfo from '@/components/poetry/PoetryCulturalInfo';
 import { publicAsset } from "@/lib/publicAsset";
 
 const heroBackgroundImage = publicAsset("ي.png");
@@ -63,6 +63,7 @@ const PoetryAnalysisPage = () => {
         handleAnalyze={handleAnalyze}
         isAnalyzing={isAnalyzing}
       />
+      <PoetryCulturalInfo />
     </div>
   );
 };
